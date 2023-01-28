@@ -1,4 +1,6 @@
-# general downloads
+# Notes on files
+
+There are no packages.  Right click and download the file(s) you want.
 
 This project holds 
 
@@ -8,4 +10,4 @@ This project holds
 
    To install, click on Extensions, then click the "..." at the top of the popup that opens, then select "Install from VSIX".   
 
-There are no packages.  Right click and download the file(s) you want.
+

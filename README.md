@@ -1,9 +1,11 @@
-# gen
+# general downloads
 
 This project holds 
 
-1. The eCLiPse constraint logic puzzle website pages were originally posted on Sourceforge around 1999-2000 (under brownbuffalo.sourceforge.net).  They are posted here to make them generally available to anyone.  The website is self-contained.  Install into a separate directory and run index.html in a browser.   
+1. The eCLiPse file contains the complete website of logic puzzles that I worked out using the eCLiPse Constraint Logic program.  They were posted on Sourceforge around 1999 (under the name of brownbuffalo.sourceforge.net). When Sourceforge reorganized, the website got lost in the shuffle.  The website is a single directory with puzzle descriptions, answers and code solutions.  Install into a separate directory and run index.html in a browser.    
 
-2. The VSIX file is replacement for the extension for VSCode of the Picat extension built by Arthur Wang (stored on Github as arthurwang.vsc-picat-9.1.21.vsix).  It modifies one line in two files so the extension works on Windows OS: extension/out/src/features/picatLinter.js  and extension/out/src/features/picatTerminal.js.  Install it as an extension into VSCode as normal.  It is not in the MS catalog, so click "install from VSIX" ( first click the  "..." at the top of the extensions area in VSCODE).   
+2. The VSIX file is fixes the Picat extension for VSCode built by Arthur Wang.  It modifies one line in two files so the extension works on Windows OS: extension/out/src/features/picatLinter.js  and extension/out/src/features/picatTerminal.js.  I have left the other details as originally written.  
 
-There are no packages.  Right click and download the file(s).
+To install, click on Extensions, then click the ... at the top, then select "Install from VSIX".   
+
+There are no packages.  Right click and download the file(s) you want.

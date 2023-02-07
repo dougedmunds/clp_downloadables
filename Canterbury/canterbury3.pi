@@ -1,0 +1,113 @@
+/*
+Dudeney, Canterbury Puzzles, #3
+
+3.—The Millers Puzzle. 
+The Miller next took the company aside and showed them 
+nine sacks of flour that were standing as depicted in the sketch. 
+" Now, hearken all and some,*' said he, " while that I do set 
+ye the riddle of the nine sacks of flour. And mark ye, my 
+lords and masters, that there be single sacks on the outside, pairs 
+next unto them, and three together in the middle thereof. By Saint 
+Benedict, it doth so happen that if we do but multiply the pair, 28, 
+by the single one, 7, the answer is 196, which is of a truth the 
+number shown by the sacks in the middle. Yet it be not true that 
+the other pair, 34, when so multiplied by its neighbour, 5, will also 
+make 196. Wherefore I do beg you, gentle sirs, so to place anew 
+the nine sacks with as little trouble as possible that each pair when 
+thus multiplied by its single neighbour shall make the number in the 
+middle." As the Miller has stipulated in effect that as few bags as 
+possible shall be moved, there is only one answer to this puzzle, 
+which everybody should be able to solve. 
+
+Original layout of the nine bags was
+7  28 196 34 5 
+
+
+4 possible solutions, depending on where bags moved to.  Two possible
+middle numbers, 156 and 174
+from 
+[7,0,2,8,0,1,9,6,0,3,4,0,5]  (with 0's representing separation spaces)
+to
+[2,0,7,8,0,1,5,6,0,3,9,0,4]
+[3,0,5,8,0,1,7,4,0,2,9,0,6]
+[4,0,3,9,0,1,5,6,0,7,8,0,2]
+[6,0,2,9,0,1,7,4,0,5,8,0,3]
+
+Puzzle says it narrows to one solution with the added constraint of "with as little trouble as possible", which Dudeney equates with "as few bags as possible shall be moved".
+This code interprets it as "the least distance moving bags, in two ways, with and without counting the spaces between bags".  In both versions, the first solution is "as little trouble as possible"
+
+*/
+import cp.
+
+main => go.
+
+go =>
+
+Vars = [A,Z1,B,C,Z2, D,E,F,Z3,G,H,Z4,I],
+Vars :: 0..9,
+all_different_except_0(Vars),
+Z1 = 0, Z2 = 0, Z3 = 0, Z4 = 0, 
+[A,B,C, D,E,F,G,H,I] notin [0],
+
+A * ((10 * B) + C) #=  (100 * D) + (10 * E) + F,
+ (100 * D) + (10 * E) + F #= ((10 * G) + H) * I  ,
+
+
+SV = solve_all(Vars),
+%println(solutions=SV[1]),
+println(count= len(SV)),
+println(original),
+OrigPos =[7,0,2,8,0,1,9,6,0,3,4,0,5], 
+println(OrigPos),
+nl, 
+
+foreach (X in SV)
+    % X is a solution list 
+    println(OrigPos),
+    println(X), 
+
+    %Do not include spaces in move
+    OrigPosNoZ = remove_zeros(OrigPos),
+    XNoZ = remove_zeros(X),
+    OrigNumbPosNoZ = abs_list2(OrigPosNoZ),
+    NewNumbPosNoZ  = abs_list2(XNoZ),
+    SolvAbs1 = abs_list1(OrigNumbPosNoZ, NewNumbPosNoZ),
+    println(OrigNumbPosNoZ),
+    println(NewNumbPosNoZ),
+    println(SolvAbs1),
+    println(distance_of_moves_no_spaces = sum(SolvAbs1)),
+
+    %Include spaces in move
+    OrigNumbPos = abs_list2(OrigPos),
+    NewNumbPos  = abs_list2(X),
+    SolvAbs2 = abs_list1(OrigNumbPos, NewNumbPos),
+    println(OrigNumbPos),
+    println(NewNumbPos),
+    println(SolvAbs2),
+    println(distance_of_moves_with_spaces = sum(SolvAbs2)),
+
+    println(count_of_moved = cnt_bags_moved(OrigPos, X)),
+     nl
+end,
+nl.
+
+% functions
+
+abs_list1(X,Y) = AbsList1 =>
+    % X:list, Y:list, AbsList:list
+    %calc difference where each 1..9 started, where it moved to
+    AbsList1 = [T : A in 1..len(X), T = abs(X[A]-Y[A])].
+
+abs_list2(X) = AbsList2 => 
+    %determine position of each 1..9 in list X
+    %nth works since each number 1..9 only appears once
+    AbsList2 = [Pos: A in 1..9, nth(Pos,X, A)].
+    
+remove_zeros(X) = XNoZ =>
+    %X:list, XNoZ: list
+XNoZ = [T: A in 1..len(X), T = X[A], T != 0].
+
+cnt_bags_moved(X,Y) = CntMoved =>
+    % X:list, Y:list, CntMoved: integer 
+    MovedList = [T: A in 1..len(X), T = X[A] -Y[A], T != 0],
+    CntMoved = len(MovedList).
